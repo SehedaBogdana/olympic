@@ -2,15 +2,21 @@ import sys
 file_with_data = sys.argv[1]
 # ./ поточна папка
 country = sys.argv[3]
-
-print("country = ", country)
-
+year = sys
+year_set = set()
 with open(file_with_data, 'r') as file:
-    line = file.readline()
 
     #current_country = line[6]
-
+    line = file.readline()
+    line = file.readline()
     while line != "":
-        line = file.readline()
         line_splitted = line.split("\t")
-        print(line_splitted)
+        year = int(line_splitted[9])
+        year_set.add(year)
+        line = file.readline()
+
+year_list = sorted(year_set)
+
+for i, y in enumerate(year_list[:10], 1):
+    print(i, "\t", y)
+
