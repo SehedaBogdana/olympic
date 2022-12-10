@@ -30,10 +30,18 @@ with open(data_file, 'r') as file:
         medal = line_split[14]
         name = line_split[1]
         sport = line_split[12]
+        year = line_split[9]
         line = file.readline()
         if country == current_country or country == NAC:
-            line = file.readline()
-            if year in line_split and country in line_split:
-                line = file.readline()
-                print(f"{name} - {sport}")
+            if year in line_split:
+                if medal != "NA\n":
+                    if quality < 10:
+                        print(f"{quality + 1}.{name} - {sport} - {medal}")
+                        quality += 1
+
+                    else:
+                        break
+
+
+
 
