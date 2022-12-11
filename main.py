@@ -26,13 +26,13 @@ with open(data_file, 'r') as file:
     while line != "":
         line_split = line.split("\t")
         current_country = line_split[6]
-        NAC = line_split[7]
+        NOC = line_split[7]
         medal = line_split[14]
         name = line_split[1]
         sport = line_split[12]
         year = line_split[9]
         line = file.readline()
-        if country == current_country or country == NAC:
+        if country == current_country or country == NOC:
             if year in line_split:
                 if medal != "NA\n":
                     if quality < 10:
@@ -42,6 +42,32 @@ with open(data_file, 'r') as file:
                     else:
                         break
 
+gold = 0
+silver = 0
+bronze = 0
+with open(data_file, "r") as file:
+    file.readline()
+    line = file.readline()
+    while line != "":
+        line_split = line.split("\t")
+        current_country = line_split[6]
+        NOC = line_split[7]
+        medal = line_split[14]
+        year = line_split[9]
+        line = file.readline()
+        if country == current_country or country == NOC:
+            if year in line_split:
+                if medal == "Gold\n":
+                    gold += 1
+                    continue
+                elif medal == "Silver\n":
+                    silver += 1
+                    continue
+                elif medal == "Bronze\n":
+                    bronze += 1
+                    continue
+    else:
+        print(f"Gold medals - {gold}, Silver medals - {silver}, Bronze medals - {bronze}")
 
 
-print("hello")
+
