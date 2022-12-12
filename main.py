@@ -30,10 +30,10 @@ with open(data_file, 'r') as file:
         medal = line_split[14]
         name = line_split[1]
         sport = line_split[12]
-        year = line_split[9]
+        current_year = line_split[9]
         line = file.readline()
         if country == current_country or country == NOC:
-            if year in line_split:
+            if year in line_split and current_year == year:
                 if medal != "NA\n":
                     if quality < 10:
                         print(f"{quality + 1}.{name} - {sport} - {medal}")
@@ -53,10 +53,10 @@ with open(data_file, "r") as file:
         current_country = line_split[6]
         NOC = line_split[7]
         medal = line_split[14]
-        year = line_split[9]
+        current_year = line_split[9]
         line = file.readline()
         if country == current_country or country == NOC:
-            if year in line_split:
+            if year in line_split and current_year == year:
                 if medal == "Gold\n":
                     gold += 1
                     continue
