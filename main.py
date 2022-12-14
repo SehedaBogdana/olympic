@@ -73,14 +73,15 @@ if command == "-medals":
             else:
                 print(f"Gold medals - {gold}, Silver medals - {silver}, Bronze medals - {bronze}")
 
+#################################################################################################################
+# -total 1972
 
 elif command == "-total":
     import sys
-    cur_dir = sys.argv[1] #дістаємо директорію
-    filename = f"{cur_dir}" #дістаємо файл
+    data_file = sys.argv[1]
     year_2 = sys.argv[3] #дістаємо рік
 
-    with open(filename, 'r') as file:
+    with open(data_file, 'r') as file:
         file.readline() #пропуск першу лінію
         line = file.readline()# читаємо наступну лінію
         data = [] #створ список
@@ -88,7 +89,6 @@ elif command == "-total":
             line_split = line.split("\t") #розділ лінію на табуляції
             data.append(line_split) #додаємо в список
             line = file.readline() #читаємо наступну лінію
-
 
     filtered_data = [] #створ пустий список
 
@@ -99,7 +99,7 @@ elif command == "-total":
             filtered_data.append(line) #тоді додаємо в список
 
     for line in filtered_data: #проход по списку
-        if line[6].__contains__("-"): #якщо в місті є дефіс
+        if '-' in line[6]: #якщо в місті є дефіс
             line[6] = line[6][:-2] #то виділяємо його і два символи після нього
 
     distData = {} #створ словник
@@ -110,13 +110,12 @@ elif command == "-total":
         if current_city not in distData.keys(): #якщо міста немає в словнику
             distData[current_city] = [0, 0, 0] #тоді додаємо його
 
-
         else: #якщо місто є в словнику
-            if medal.__contains__("Bronze"): #якщо медаль бронзова
+            if medal == "Bronze\n": #якщо медаль бронзова
                 distData[current_city][0] += 1 #тоді додаємо до словника
-            elif medal.__contains__("Silver"):
+            elif medal == "Silver\n":
                 distData[current_city][1] += 1
-            elif medal.__contains__("Gold"):
+            elif medal == "Gold\n":
                 distData[current_city][2] += 1
 
     for key, value in distData.items(): #проходимося по словнику
@@ -124,14 +123,16 @@ elif command == "-total":
 
 
 
+################################################################################################################
+# -overall China Ukraine Poland
+
 elif command == "-overall":
-    cur_dir = sys.argv[1] #дістаємо директорію
-    filename = f"{cur_dir}" #дістаємо файл
+    data_file = sys.argv[1]
     year = sys.argv[3] #дістаємо рік
 
     info = {}
 
-    with open(filename, 'r') as file: #filename - рядок, в якому ім'я переданого файлу
+    with open(data_file, 'r') as file:
         row = file.readline()
 
         while row:
