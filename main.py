@@ -10,7 +10,6 @@ quantity = 0
 all_years = []
 all_countries = []
 
-# ============================================================= 1
 
 if command == "-medals":
     with open(data_file, 'r') as file:
