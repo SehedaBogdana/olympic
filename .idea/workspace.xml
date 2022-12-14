@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e64c1245-21e4-4b0d-a33a-68cf93e7a3ad" name="Changes" comment="deleted" />
+    <list default="true" id="e64c1245-21e4-4b0d-a33a-68cf93e7a3ad" name="Changes" comment="resolved conflict, hope the last">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -118,7 +121,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="./data_file.tsv -total  1972" />
+      <option name="PARAMETERS" value="./data_file.tsv -medals Ukraine 2002" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -235,7 +238,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671029866495</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="resolved conflict, hope the last">
+      <created>1671030913801</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1671030913801</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -273,7 +283,8 @@
     <MESSAGE value="conflict resolved 4" />
     <MESSAGE value="less than 10 medalists" />
     <MESSAGE value="deleted" />
-    <option name="LAST_COMMIT_MESSAGE" value="deleted" />
+    <MESSAGE value="resolved conflict, hope the last" />
+    <option name="LAST_COMMIT_MESSAGE" value="resolved conflict, hope the last" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

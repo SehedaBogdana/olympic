@@ -2,17 +2,16 @@
 import sys
 # ./ поточна папка
 
-data_file = sys.argv[1]
+
 command = sys.argv[2]
-country = sys.argv[3]
-year = sys.argv[4]
-output_t = sys.argv[6]
 quantity = 0
 all_years = []
 all_countries = []
 
-
 if command == "-medals":
+    data_file = sys.argv[1]
+    country = sys.argv[3]
+    year = sys.argv[4]
     with open(data_file, 'r') as file:
         file.readline()
         line = file.readline()
@@ -73,5 +72,55 @@ if command == "-medals":
                 print("This country doesn't have more than 10 medals")
             else:
                 print(f"Gold medals - {gold}, Silver medals - {silver}, Bronze medals - {bronze}")
+
+
+elif command == "-total":
+    import sys
+    cur_dir = sys.argv[1] #дістаємо директорію
+    filename = f"{cur_dir}" #дістаємо файл
+    year_2 = sys.argv[3] #дістаємо рік
+
+    with open(filename, 'r') as file:
+        file.readline() #пропуск першу лінію
+        line = file.readline()# читаємо наступну лінію
+        data = [] #створ список
+        while line != "": #поки лінія не пуста
+            line_split = line.split("\t") #розділ лінію на табуляції
+            data.append(line_split) #додаємо в список
+            line = file.readline() #читаємо наступну лінію
+
+
+    filtered_data = [] #створ пустий список
+
+    for line in data: #проход по списку
+        current_year = line[9]
+        medal = line[14]
+        if current_year == year_2 and medal != "NA\n": #якщо рік співпадає і медаль не NA
+            filtered_data.append(line) #тоді додаємо в список
+
+    for line in filtered_data: #проход по списку
+        if line[6].__contains__("-"): #якщо в місті є дефіс
+            line[6] = line[6][:-2] #то виділяємо його і два символи після нього
+
+    distData = {} #створ словник
+
+    for line in filtered_data: #проход по списку
+        current_city = line[6]
+        medal = line[14]
+        if current_city not in distData.keys(): #якщо міста немає в словнику
+            distData[current_city] = [0, 0, 0] #тоді додаємо його
+
+
+        else: #якщо місто є в словнику
+            if medal.__contains__("Bronze"): #якщо медаль бронзова
+                distData[current_city][0] += 1 #тоді додаємо до словника
+            elif medal.__contains__("Silver"):
+                distData[current_city][1] += 1
+            elif medal.__contains__("Gold"):
+                distData[current_city][2] += 1
+
+    for key, value in distData.items(): #проходимося по словнику
+        print(f"{key} won {value[0]} Bronze, {value[1]} Silver, {value[2]} Gold")
+
 
 
