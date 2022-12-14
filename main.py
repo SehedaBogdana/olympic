@@ -123,4 +123,48 @@ elif command == "-total":
         print(f"{key} won {value[0]} Bronze, {value[1]} Silver, {value[2]} Gold")
 
 
+elif command == "-overall":
+    cur_dir = sys.argv[1] #дістаємо директорію
+    filename = f"{cur_dir}" #дістаємо файл
+    year = sys.argv[3] #дістаємо рік
+
+    info = {}
+
+    with open(filename, 'r') as file: #filename - рядок, в якому ім'я переданого файлу
+        row = file.readline()
+
+        while row:
+            row = row[:-1] #весь рядок крім останнього символа
+            columns = row.split('\t') #ділимо по табуляції
+
+            year = columns[9]
+            team = columns[6]
+            medal = columns[14]
+            countries = sys.argv[3:]
+
+            if medal != 'NA' and team in countries:
+                if team not in info:
+                    info[team] = {} #словник
+                if year not in info[team]:
+                    info[team][year] = {'count': 0} #словник
+
+                info[team][year]['count'] += 1
+
+            row = file.readline()
+
+        for team, teamInfo in info.items():
+            print(f'{team}:')
+            maxCount = 0
+            maxYear = 0
+
+            for year, totalCount in teamInfo.items():
+                count = totalCount['count']
+                #print(f'\t\t{year} : {count}')
+
+                if count > maxCount:
+                    maxCount = count
+                    maxYear = year
+
+            print(f'\t\tнайуспішніший рік {maxYear} - {maxCount} медалей')
+            continue
 
