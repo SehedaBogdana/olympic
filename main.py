@@ -74,4 +74,3 @@ if command == "-medals":
             else:
                 print(f"Gold medals - {gold}, Silver medals - {silver}, Bronze medals - {bronze}")
 
-# ===================================================== 4
