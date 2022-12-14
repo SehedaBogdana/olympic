@@ -123,6 +123,7 @@ elif command == "-total":
         print(f"{key} won {value[0]} Bronze, {value[1]} Silver, {value[2]} Gold")
 
 
+
 elif command == "-overall":
     cur_dir = sys.argv[1] #дістаємо директорію
     filename = f"{cur_dir}" #дістаємо файл
