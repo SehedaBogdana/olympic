@@ -13,8 +13,8 @@ if command == "-medals":
     country = sys.argv[3]
     year = sys.argv[4]
     with open(data_file, 'r') as file:
-        file.readline()
-        line = file.readline()
+        file.readline() #пропуск першу лінію
+        line = file.readline() #читаємо наступну лінію
         while line != "":
             line_split = line.split("\t")
             current_country = line_split[6]
@@ -90,36 +90,36 @@ elif command == "-total":
             data.append(line_split) #додаємо в список
             line = file.readline() #читаємо наступну лінію
 
-    filtered_data = [] #створ пустий список
+        filtered_data = [] #створ пустий список
 
-    for line in data: #проход по списку
-        current_year = line[9]
-        medal = line[14]
-        if current_year == year_2 and medal != "NA\n": #якщо рік співпадає і медаль не NA
-            filtered_data.append(line) #тоді додаємо в список
+        for line in data: #проход по списку
+            current_year = line[9]
+            medal = line[14]
+            if current_year == year_2 and medal != "NA\n": #якщо рік співпадає і медаль не NA
+                filtered_data.append(line) #тоді додаємо в список
 
-    for line in filtered_data: #проход по списку
-        if '-' in line[6]: #якщо в місті є дефіс
-            line[6] = line[6][:-2] #то виділяємо його і два символи після нього
+        for line in filtered_data: #проход по списку
+            if '-' in line[6]: #якщо в місті є дефіс
+                line[6] = line[6].split('-')[0] #то виділяємо його і два символи після нього
 
-    distData = {} #створ словник
 
-    for line in filtered_data: #проход по списку
-        current_city = line[6]
-        medal = line[14]
-        if current_city not in distData.keys(): #якщо міста немає в словнику
-            distData[current_city] = [0, 0, 0] #тоді додаємо його
+        distData = {} #створ словник
+        for line in filtered_data: #проход по списку
+            current_city = line[6]
+            medal = line[14]
+            if current_city not in distData.keys(): #якщо міста немає в словнику
+                distData[current_city] = [0, 0, 0] #тоді додаємо його
 
-        else: #якщо місто є в словнику
-            if medal == "Bronze\n": #якщо медаль бронзова
-                distData[current_city][0] += 1 #тоді додаємо до словника
-            elif medal == "Silver\n":
-                distData[current_city][1] += 1
-            elif medal == "Gold\n":
-                distData[current_city][2] += 1
+            else: #якщо місто є в словнику
+                if medal == "Bronze\n": #якщо медаль бронзова
+                    distData[current_city][0] += 1 #тоді додаємо до словника
+                elif medal == "Silver\n":
+                    distData[current_city][1] += 1
+                elif medal == "Gold\n":
+                    distData[current_city][2] += 1
 
-    for key, value in distData.items(): #проходимося по словнику
-        print(f"{key} won {value[0]} Bronze, {value[1]} Silver, {value[2]} Gold")
+        for key, value in distData.items(): #проходимося по словнику
+            print(f"{key} won {value[0]} Bronze, {value[1]} Silver, {value[2]} Gold")
 
 
 
