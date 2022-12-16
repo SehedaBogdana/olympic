@@ -80,11 +80,11 @@ elif command == "-total":
     import sys
     data_file = sys.argv[1]
     year_2 = sys.argv[3] #дістаємо рік
-
     with open(data_file, 'r') as file:
         file.readline() #пропуск першу лінію
         line = file.readline()# читаємо наступну лінію
         data = [] #створ список
+
         while line != "": #поки лінія не пуста
             line_split = line.split("\t") #розділ лінію на табуляції
             data.append(line_split) #додаємо в список
@@ -107,9 +107,9 @@ elif command == "-total":
         for line in filtered_data: #проход по списку
             current_city = line[6]
             medal = line[14]
+
             if current_city not in distData.keys(): #якщо міста немає в словнику
                 distData[current_city] = [0, 0, 0] #тоді додаємо його
-
             else: #якщо місто є в словнику
                 if medal == "Bronze\n": #якщо медаль бронзова
                     distData[current_city][0] += 1 #тоді додаємо до словника
@@ -118,7 +118,7 @@ elif command == "-total":
                 elif medal == "Gold\n":
                     distData[current_city][2] += 1
 
-        for key, value in distData.items(): #проходимося по словнику
+        for key, value in distData.items(): #проходимося по словнику, оверт ключ і значення
             print(f"{key} won {value[0]} Bronze, {value[1]} Silver, {value[2]} Gold")
 
 
@@ -154,7 +154,7 @@ elif command == "-overall":
 
             row = file.readline()
 
-        for team, teamInfo in info.items():
+        for team, teamInfo in info.items(): #проходимось по словнику
             print(f'{team}:')
             maxCount = 0
             maxYear = 0
