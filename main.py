@@ -2,7 +2,7 @@
 import sys
 # ./ поточна папка
 
-
+# -medals China 2004
 command = sys.argv[2]
 quantity = 0
 all_years = []
