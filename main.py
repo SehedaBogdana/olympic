@@ -1,17 +1,18 @@
-
 import sys
 # ./ поточна папка
 
 # -medals China 2004
+data_file = sys.argv[1]
 command = sys.argv[2]
-quantity = 0
-all_years = []
-all_countries = []
+# 1 -medals =====================================================================================================
 
 if command == "-medals":
-    data_file = sys.argv[1]
     country = sys.argv[3]
     year = sys.argv[4]
+    output_t = sys.argv[6]
+    all_countries = []
+    quantity = 0
+    all_years = []
     with open(data_file, 'r') as file:
         file.readline() #пропуск першу лінію
         line = file.readline() #читаємо наступну лінію
@@ -73,12 +74,81 @@ if command == "-medals":
             else:
                 print(f"Gold medals - {gold}, Silver medals - {silver}, Bronze medals - {bronze}")
 
+# 4 interactive ========================================================================================
+
+if command == "-interactive":
+    medals = {}
+    place = {}
+    our_list = []
+    filtered_data = []
+    data = []
+    all_countries = []
+    distDatas = {}
+    each_olymp = {
+        "Gold": 0,
+        "Bronze": 0,
+        "Silver": 0
+    }
+    country = input("Enter the country: ")
+    with open(data_file, 'r') as file:
+        file.readline()
+        line = file.readline()
+        while line != "":
+            line_split = line.split("\t")
+            data.append(line_split)
+            current_country = line_split[6]
+            NOC = line_split[7]
+            current_medal = line_split[14]
+            current_place = line_split[11]
+            current_years = line_split[9]
+            all_countries.append(current_country)
+            set_of_gold = set()
+            set_of_silver = set()
+            set_of_bronze = set()
+            # value_1 = sum{values[0], values[1], values[2]}
+            line = file.readline()
+            if NOC == country or current_country == country:
+                if current_medal != "NA\n":
+                    filtered_data.append(line)
+                    if current_years in medals:
+                        medals[current_years] = medals[current_years] + 1
+                        if current_years in distDatas.keys():
+                            if current_medal == "Bronze\n": #якщо медаль бронзова
+                                distDatas[current_years][0] += 1 #тоді додаємо до словника
+                            elif current_medal == "Silver\n":
+                                distDatas[current_years][1] += 1
+                            elif current_medal == "Gold\n":
+                                distDatas[current_years][2] += 1
+
+                    else:
+                        medals[current_years] = 1
+                        our_list.append(current_years)
+                        place[current_place] = current_years
+                        for line in filtered_data:
+                            if current_years not in distDatas.keys(): #якщо міста немає в словнику
+                                distDatas[current_years] = [0, 0, 0]
+
+        else:
+            print(f"{min(place, key=place.get)} where was their first game")
+            print(f"{min(our_list)} - is the first year when the country participated")
+            print(f"{max(medals, key=medals.get)} - the best year")
+            print(f"{min(medals, key=medals.get)} - the worst year")
+            for key, value in distDatas.items(): #проходимося по словнику
+                first = value[0]
+                second = value[1]
+                third = value[2]
+                quantity_of_years = len(distDatas)
+                set_of_gold.add(third)
+                set_of_bronze.add(first)
+                set_of_silver.add(second)
+            print(f"On average, the country got: {int(sum(set_of_bronze)/quantity_of_years)} - bronze, {int(sum(set_of_silver)/quantity_of_years)} - silver, {int(sum(set_of_gold)/quantity_of_years)} - gold")
+
+
+
 #################################################################################################################
 # -total 1972
 
 elif command == "-total":
-    import sys
-    data_file = sys.argv[1]
     year_2 = sys.argv[3] #дістаємо рік
     with open(data_file, 'r') as file:
         file.readline() #пропуск першу лінію
@@ -98,6 +168,9 @@ elif command == "-total":
             if current_year == year_2 and medal != "NA\n": #якщо рік співпадає і медаль не NA
                 filtered_data.append(line) #тоді додаємо в список
 
+    for line in filtered_data: #проход по списку
+        if '-' in line[6]: #якщо в місті є дефіс
+            line[6] = line[6].split('-')[0] #то виділяємо його і два символи після нього
         for line in filtered_data: #проход по списку
             if '-' in line[6]: #якщо в місті є дефіс
                 line[6] = line[6].split('-')[0] #то виділяємо його і два символи після нього
@@ -133,8 +206,8 @@ elif command == "-overall":
     info = {}
 
     with open(data_file, 'r') as file:
+        file.readline()
         row = file.readline()
-
         while row:
             row = row[:-1] #весь рядок крім останнього символа
             columns = row.split('\t') #ділимо по табуляції
