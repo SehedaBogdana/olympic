@@ -205,8 +205,8 @@ elif command == "-overall":
     info = {}
 
     with open(data_file, 'r') as file:
+        file.readline()
         row = file.readline()
-
         while row:
             row = row[:-1] #весь рядок крім останнього символа
             columns = row.split('\t') #ділимо по табуляції
